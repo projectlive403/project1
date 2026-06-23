@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>BITE SPOT | Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, sans-serif;
+            background: #0d0d0d;
+            color: #e0d6cc;
+            line-height: 1.5;
+            /* Friends together background image */
+            background-image: url('https://images.pexels.com/photos/3184183/pexels-photo-3184183.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        /* Dark overlay for entire page */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: -1;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,220,0.08);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #d98f54, #b8703a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #e0d6cc;
+            transition: 0.25s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #d98f54;
+        }
+
+        .menu-section {
+            padding: 3rem 5%;
+        }
+
+        .menu-section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #d98f54;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            transition: 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Dark Overlay for all menu items */
+        .menu-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            border-radius: 1.5rem;
+            z-index: 0;
+            transition: 0.3s ease;
+        }
+
+        .menu-item:hover::before {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Content on top of overlay */
+        .menu-emoji, .menu-item h3, .price, .item-desc, .add-btn {
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+            color: #fff;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #d98f54;
+            margin: 0.5rem 0;
+        }
+
+        .item-desc {
+            color: #c0b4a8;
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .add-btn {
+            background: #d98f54;
+            color: #0d0d0d;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.25s ease;
+        }
+
+        .add-btn:hover {
+            background: #e8a06a;
+            transform: scale(1.02);
+        }
+
+        /* TRADITIONAL SUKKU COFFEE - UNIQUE BACKGROUND (different from cold coffee) */
+        .item-sukku {
+            background-image: url('https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-position: 30% 40%;
+        }
+
+        .item-burger {
+            background-image: url('https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=600');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .item-pizza {
+            background-image: url('https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg?auto=compress&cs=tinysrgb&w=600');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .item-cake {
+            background-image: url('https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=600');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* COLD COFFEE - COMPLETELY DIFFERENT REFRESHING IMAGE */
+        .item-coldcoffee {
+            background-image: url('https://images.pexels.com/photos/324028/pexels-photo-324028.jpeg?auto=compress&cs=tinysrgb&w=600');
+            background-size: cover;
+            background-position: 20% 30%;
+        }
+
+        .item-fries {
+            background-image: url('https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=600');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .item-sandwich {
+            background-image: url('https://images.pexels.com/photos/1600727/pexels-photo-1600727.jpeg?auto=compress&cs=tinysrgb&w=600');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .item-brownie {
+            background-image: url('https://images.pexels.com/photos/45202/brownie-dessert-cake-sweet-45202.jpeg?auto=compress&cs=tinysrgb&w=600');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .order-type {
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(8px);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin: 2rem 5%;
+            text-align: center;
+            border: 1px solid rgba(217, 143, 84, 0.3);
+        }
+
+        .order-type h3 {
+            margin-bottom: 1rem;
+        }
+
+        .type-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .type-btn {
+            background: transparent;
+            border: 2px solid #5a4a3a;
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            color: #e0d6cc;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        .type-btn:hover {
+            border-color: #d98f54;
+            color: #d98f54;
+        }
+
+        .view-cart {
+            text-align: center;
+            margin: 1rem 5% 2rem;
+        }
+
+        .view-cart-btn {
+            background: transparent;
+            border: 2px solid #d98f54;
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            color: #d98f54;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.25s ease;
+        }
+
+        .view-cart-btn:hover {
+            background: #d98f54;
+            color: #0d0d0d;
+        }
+
+        footer {
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(8px);
+            color: #9a8e82;
+            padding: 2rem 5%;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 860px) {
+            .navbar {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            .nav-links {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .menu-grid {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">☕ BITE SPOT</div>
+    <div class="nav-links">
+        <a href="home.html">🏠 Home</a>
+        <a href="menu.html" class="active">📋 Menu</a>
+        <a href="rating.html">⭐ Rate Us</a>
+        <a href="#">ℹ️ About</a>
+    </div>
+</div>
+
+<section class="menu-section">
+    <h2>☕ Our Menu</h2>
+    <div class="menu-grid">
+        
+        <!-- SIGNATURE SUKKU COFFEE with traditional background (unique) -->
+        <div class="menu-item item-sukku">
+            <div class="menu-emoji">☕</div>
+            <h3>Signature Sukku Coffee</h3>
+            <div class="price">₹30</div>
+            <div class="item-desc">Traditional Sukku coffee with rich flavor & dry ginger</div>
+            <button class="add-btn">🛒 Add to Cart</button>
+        </div>
+    
+        <div class="menu-item item-burger">
+            <div class="menu-emoji">🍔</div>
+            <h3>Classic Burger</h3>
+            <div class="price">₹250</div>
+            <div class="item-desc">Loaded with cheese and chicken</div>
+            <button class="add-btn">🛒 Add to Cart</button>
+        </div>
+        
+        <div class="menu-item item-pizza">
+            <div class="menu-emoji">🍕</div>
+            <h3>Large Pizza</h3>
+            <div class="price">₹300</div>
+            <div class="item-desc">Rich in taste and cheese</div>
+            <button class="add-btn">🛒 Add to Cart</button>
+        </div>
+        
+        <div class="menu-item item-cake">
+            <div class="menu-emoji">🍰</div>
+            <h3>Red Velvet Cake</h3>
+            <div class="price">₹80</div>
+            <div class="item-desc">Soft & creamy</div>
+            <button class="add-btn">🛒 Add to Cart</button>
+        </div>
+        
+        <!-- COLD COFFEE with its own unique refreshing background (different from sukku) -->
+        <div class="menu-item item-coldcoffee">
+            <div class="menu-emoji">🥤</div>
+            <h3>Cold Coffee</h3>
+            <div class="price">₹120</div>
+            <div class="item-desc">Chilled & refreshing with ice cream</div>
+            <button class="add-btn">🛒 Add to Cart</button>
+        </div>
+    
+        <div class="menu-item item-fries">
+            <div class="menu-emoji">🍟</div>
+            <h3>French Fries</h3>
+            <div class="price">₹90</div>
+            <div class="item-desc">Crispy & salted with dip</div>
+            <button class="add-btn">🛒 Add to Cart</button>
+        </div>
+        
+        <div class="menu-item item-sandwich">
+            <div class="menu-emoji">🥪</div>
+            <h3>Loaded Sandwich</h3>
+            <div class="price">₹160</div>
+            <div class="item-desc">Grilled triple layer sandwich</div>
+            <button class="add-btn">🛒 Add to Cart</button>
+        </div>
+       
+        <div class="menu-item item-brownie">
+            <div class="menu-emoji">🍫</div>
+            <h3>Brownie</h3>
+            <div class="price">₹100</div>
+            <div class="item-desc">Warm brownie with choco fills</div>
+            <button class="add-btn">🛒 Add to Cart</button>
+        </div>
+    </div>
+</section>
+
+<div class="order-type">
+    <h3>⏰ Choose Your Preference</h3>
+    <div class="type-buttons">
+        <button class="type-btn">🪑 Dine In</button>
+        <button class="type-btn">🛍️ Take Away</button>
+    </div>
+</div>
+
+<div class="view-cart">
+    <a href="rating.html" class="view-cart-btn">🛒 View Cart →</a>
+</div>
+
+<footer><p>@ 2003 BITE SPOT</p></footer>
+
+</body>
+</html>
